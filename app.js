@@ -18,8 +18,6 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers','Content-Type, Option, Authorization')
   return next()
 })
-
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
