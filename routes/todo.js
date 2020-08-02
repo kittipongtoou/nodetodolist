@@ -69,8 +69,8 @@ router.put('/todolist', function (req, res) {
   });
 });
 
-router.delete('/todolist', function (req, res) {
-  let id = req.body.id;
+router.delete('/todolist/:id', function (req, res) {
+  let id = req.params.id;
 
   if (!id) {
       return res.status(400).send({ error: true, message: 'Please provide todolist id' });
