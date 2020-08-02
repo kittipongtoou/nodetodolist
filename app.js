@@ -6,18 +6,14 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var todoRouter = require('./routes/todo');
-
+var cors = require('cors');
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://todolisttest-heroku.herokuapp.com')
-  res.header('Access-Control-Allow-Methods','POST, GET, PUT, PATCH, DELETE, OPTIONS')
-  res.header('Access-Control-Allow-Headers','Content-Type, Option, Authorization')
-  return next()
-})
+app.use(cors());
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
