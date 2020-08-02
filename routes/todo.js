@@ -27,6 +27,7 @@ router.post('/todolist', function(req, res) {
       message: "New todolist added successfully"
     })
   })
+  db.end();
 });
 
 
@@ -55,6 +56,7 @@ router.put('/todolist', function (req, res) {
         message: message 
       });
   });
+  db.end();
 });
 
 router.delete('/todolist', function (req, res) {
@@ -75,6 +77,7 @@ router.delete('/todolist', function (req, res) {
 
       return res.send({ error: false, data: results, message: message });
   });
+  db.end();
 });
 
 
