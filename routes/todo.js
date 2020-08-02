@@ -41,7 +41,6 @@ router.post('/todolist', function(req, res) {
 
 
 router.put('/todolist', function (req, res) {
-  
   let id = req.body.id;
   let todolist_text = req.body.todolist_text;
   let status = req.body.status;
@@ -71,7 +70,6 @@ router.put('/todolist', function (req, res) {
 });
 
 router.delete('/todolist', function (req, res) {
-  
   let id = req.body.id;
 
   if (!id) {
