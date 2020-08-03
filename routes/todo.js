@@ -40,13 +40,12 @@ router.post('/todolist', function(req, res) {
 });
 
 
-router.put('/todolist', function (req, res) {
-  let id = req.body.id;
+router.put('/todolist/:id', function (req, res) {
+  let id = req.params.id;
   let todolist_text = req.body.todolist_text;
   let status = req.body.status;
-
-  if (!id || !todolist_text || !status) {
-      res.status(400).send({ message: 'Please provide todolist id, text and status' });
+  if (!id) {
+      res.status(400).send({ message: 'Please provide todolist id' });
   }
   pool.getConnection(function(err, connection){    
     connection.query("UPDATE todolist SET todolist_text = ?, status = ? WHERE id = ?", [todolist_text, status, id], function(err, rows){
