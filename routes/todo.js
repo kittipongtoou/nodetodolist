@@ -43,12 +43,12 @@ router.post('/todolist', function(req, res) {
 router.put('/todolist/:id', function (req, res) {
   let id = req.params.id;
   let todolist_text = req.body.todolist_text;
-  let status = req.body.status;
+  let isCompleted = req.body.isCompleted;
   if (!id) {
       res.status(400).send({ message: 'Please provide todolist id' });
   }
   pool.getConnection(function(err, connection){    
-    connection.query("UPDATE todolist SET todolist_text = ?, status = ? WHERE id = ?", [todolist_text, status, id], function(err, rows){
+    connection.query("UPDATE todolist SET todolist_text = ?, isCompleted = ? WHERE id = ?", [todolist_text, isCompleted, id], function(err, rows){
       if(err) throw err;
       else {
         let message = "";
@@ -77,14 +77,19 @@ router.delete('/todolist/:id', function (req, res) {
   pool.getConnection(function(err, connection){    
     connection.query('DELETE FROM todolist WHERE id = ?', [id],  function(err, rows){
       if (err) throw err;
-
-      let message = "";
-      if (rows.affectedRows === 0)
-          message = "todolist not found";
-      else
-          message = "todolist successfully deleted";
-
-      return res.send({ error: false, data: rows, message: message });
+      else {
+        let message = "";
+        if (rows.changedRows === 0)
+            message = "todolist not found";
+        else
+            message = "todolist successfully deleted";
+  
+        res.json({ 
+          error: false, 
+          data: rows, 
+          message: message 
+        });
+      }
     });
      
     connection.release();
